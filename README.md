@@ -1,8 +1,15 @@
 #Web Development Projects
 
 This repository showcases a collection of beginner-friendly yet impactful web development projects built with HTML, CSS, and JavaScript. Each project focuses on improving core frontend development skills while creating interactive and user-friendly applications.
-#click to watch
+
+
+
+#CLICK TO WATCH
 https://drive.google.com/drive/folders/172S251iUuOxssVuSaqfWYCJBE3vHmKPH?usp=drive_link
+
+
+
+
 🔹 1. Responsive Landing Page
 
 A fully responsive landing page featuring an interactive navigation menu that changes style on scroll and hover.
