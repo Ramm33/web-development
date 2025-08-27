@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch Web Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #1d1f27;
+      color: #fff;
+      flex-direction: column;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .stopwatch {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .start { background: #28a745; color: white; }
+    .pause { background: #ffc107; color: black; }
+    .reset { background: #dc3545; color: white; }
+    .lap { background: #007bff; color: white; }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #2c2f3a;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Stopwatch Web Application</h1>
+  <div class="stopwatch" id="display">00:00:00</div>
+  <div class="buttons">
+    <button class="start" onclick="start()">Start</button>
+    <button class="pause" onclick="pause()">Pause</button>
+    <button class="reset" onclick="reset()">Reset</button>
+    <button class="lap" onclick="lap()">Lap</button>
+  </div>
+  <h2>Lap Times</h2>
+  <ul id="laps"></ul>
+
+  <script>
+    let timer;
+    let isRunning = false;
+    let startTime;
+    let elapsedTime = 0;
+
+    function updateTime() {
+      const currentTime = Date.now() - startTime + elapsedTime;
+      const hours = Math.floor(currentTime / (1000 * 60 * 60));
+      const minutes = Math.floor((currentTime % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((currentTime % (1000 * 60)) / 1000);
+
+      document.getElementById("display").textContent =
+        (hours < 10 ? "0" : "") + hours + ":" +
+        (minutes < 10 ? "0" : "") + minutes + ":" +
+        (seconds < 10 ? "0" : "") + seconds;
+    }
+
+    function start() {
+      if (!isRunning) {
+        startTime = Date.now();
+        timer = setInterval(updateTime, 1000);
+        isRunning = true;
+      }
+    }
+
+    function pause() {
+      if (isRunning) {
+        clearInterval(timer);
+        elapsedTime += Date.now() - startTime;
+        isRunning = false;
+      }
+    }
+
+    function reset() {
+      clearInterval(timer);
+      document.getElementById("display").textContent = "00:00:00";
+      document.getElementById("laps").innerHTML = "";
+      isRunning = false;
+      elapsedTime = 0;
+    }
+
+    function lap() {
+      if (isRunning) {
+        const lapTime = document.getElementById("display").textContent;
+        const li = document.createElement("li");
+        li.textContent = "Lap: " + lapTime;
+        document.getElementById("laps").appendChild(li);
+      }
+    }
+  </script>
+</body>
+</html>
